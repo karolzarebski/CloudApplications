@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:8.0.29
+    container_name: CloudAppDb
+    environment:
+      MYSQL_DATABASE: 'cloud-app-db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'zaq1@WSX'
+      MYSQL_ROOT_PASSWORD: 'zaq1@WSX'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docker-files/db:/var/lib/mysql
+    networks:
+      cloudNet:
+        ipv4_address: 192.168.0.2
+
+  backend:
+    container_name: CloudAppBackend
+    build: 
+      dockerfile: Dockerfile
+      context: ../../backend
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    networks:
+      cloudNet:
+        ipv4_address: 192.168.0.3
+
+  frontend:
+    container_name: CloudAppFrontend
+    stdin_open: true
+    build: 
+      dockerfile: Dockerfile
+      context: ../../web
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    networks:
+      cloudNet:
+        ipv4_address: 192.168.0.4
+      
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
+    networks:
+      cloudNet:
+        ipv4_address: 192.168.0.5
+
+volumes:
+  my-db:
+
+networks:
+  cloudNet:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.0/28
