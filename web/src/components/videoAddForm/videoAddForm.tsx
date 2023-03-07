@@ -21,6 +21,11 @@ export default function VideoAddForm() {
 
     const onFinish = async (values: any) => {
         try {
+            let date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+            values.PublishedAt = `${year}-${month}-${day}`;
             await post("videos", values);
             message.success('Dodano do bazy danych!');
             handleOk();
@@ -69,6 +74,14 @@ export default function VideoAddForm() {
                 <Form.Item
                     label="Słowo kluczowe"
                     name="Keyword"
+                    rules={[{required: false}]}
+                >
+                    <Input/>
+                </Form.Item>
+
+                <Form.Item
+                    label="Wideo Id"
+                    name="VideoId"
                     rules={[{required: false}]}
                 >
                     <Input/>
