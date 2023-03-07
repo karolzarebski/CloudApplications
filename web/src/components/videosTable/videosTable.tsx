@@ -12,7 +12,7 @@ export interface DataSourceProps {
     likes: number,
     comments: number,
     views: number,
-    avg_likes_comments_views_per_day?:number
+    avg_likes_comments_views_per_day?: number
 }
 
 interface columnProps {
@@ -41,17 +41,25 @@ export default function VideosTable(props: VideosTableProps) {
     const columnsWithAvg: ColumnsType<DataSourceProps> = [
         {title: "Id", dataIndex: "id", key: "id"},
         {title: "Tytuł", dataIndex: "title", key: "title"},
-        {title: "Dodano", dataIndex: "publishedAt", key: "publishedAt"},
+        {
+            title: "Dodano", dataIndex: "publishedAt", key: "publishedAt",
+            render: (value, record, index) =>
+                <span>{(new Date(value)).getFullYear().toString() + "/" + (new Date(value)).getMonth().toString() + "/" + (new Date(value)).getDate().toString()} </span>
+        },
         {title: "Słowo kluczowe", dataIndex: "keyword", key: "keyword"},
         {title: "Polubienia", dataIndex: "likes", key: "likes"},
         {title: "Komentarze", dataIndex: "comments", key: "comments"},
         {title: "Wyświetlenia", dataIndex: "views", key: "views"},
-        {title: "Średnia aktywność na dzień", dataIndex: "avg_likes_comments_views_per_day", key: "avg_likes_comments_views_per_day"}
-    ] as columnProps[];
+        {
+            title: "Średnia aktywność na dzień",
+            dataIndex: "avg_likes_comments_views_per_day",
+            key: "avg_likes_comments_views_per_day"
+        }
+    ]
 
-    const xd: DataSourceProps[] | undefined = props.dataSource?.map((record:any, idx) => {
+    const xd: DataSourceProps[] | undefined = props.dataSource?.map((record: any, idx) => {
         console.log(record);
-        if(!props.withAvg){
+        if (!props.withAvg) {
             return {
                 id: record.Id,
                 key: idx,
@@ -62,7 +70,7 @@ export default function VideosTable(props: VideosTableProps) {
                 comments: record.Comments,
                 views: record.Views
             } as DataSourceProps
-        }else {
+        } else {
             return {
                 id: record.Id,
                 key: idx,
@@ -77,6 +85,7 @@ export default function VideosTable(props: VideosTableProps) {
         }
     })
 
-    return <Table loading={props.loading} dataSource={xd} columns={props.withAvg ? columnsWithAvg : columns} pagination={{pageSize: 5}}/>
+    return <Table loading={props.loading} dataSource={xd} columns={props.withAvg ? columnsWithAvg : columns}
+                  pagination={{pageSize: 5}}/>
 }
 
