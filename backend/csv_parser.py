@@ -12,7 +12,7 @@ database_service = DatabaseService(database_configuration)
 filename = "data.csv"
 
 # Open the CSV file
-with open(filename, "r") as file:
+with open(filename, "r", encoding="utf8") as file:
 
     # Create a CSV reader object
     reader = csv.reader(file)
