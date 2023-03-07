@@ -57,8 +57,8 @@ def get_stats():
     all_data = pd.DataFrame(videos)
     all_data['avg_likes_comments_views_per_day'] = (all_data['Likes'] + all_data['Comments'] + all_data['Views']) / (
                 datetime.now().date() - pd.to_datetime(all_data["PublishedAt"]).dt.date).dt.days
-
-    response = make_response(all_data.to_json(orient='records'))
+    all_data = all_data.sort_values(by=['PublishedAt'])
+    response = make_response(all_data.head(100).to_json(orient='records'))
     response.headers['Content-Type'] = 'application/json'
 
     return response
