@@ -11,9 +11,9 @@ export interface useApiProps {
 export default function useAPI(props: useApiProps) {
     let path = preparePath(props.path);
 
-    const baseURL = "http://127.0.01:5000/";
-    const [result, setResult] = useState();
-    const [loading, setLoading] = useState(false);
+    const baseURL = "http://127.0.0.1:5000/";
+    const [result, setResult] = useState<any>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     async function get(newPath: string) {
         await setLoading(true);
@@ -37,5 +37,5 @@ export default function useAPI(props: useApiProps) {
         return candidate.charAt(0) === "/" ? candidate.substring(1) : candidate;
     }
 
-    return {result, loading, get}
+    return [result, loading, get]
 }
