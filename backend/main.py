@@ -31,11 +31,26 @@ def get_all():
             response = make_response(database_service.get_all_data())
             print("A")
             return response
-
+        elif request.method == 'POST':
+            if request.is_json and (data := request.get_json()):
+                return make_response(database_service.add_data(data))
+            return make_response({
+                "response": "Missing body"
+            })
+        elif request.method == "PUT":
+            if request.is_json and (data := request.get_json()):
+                return make_response(database_service.update_video(data))
+            return make_response({
+                "response": "Missing body"
+            })
+        return make_response({
+            "response": "Unrecognised method"
+        })
     except Exception as ex:
         return make_response({
             "error": str(ex)
         }, 400)
+
 
 @app.route("/stats", methods=['GET'])
 def get_stats():
