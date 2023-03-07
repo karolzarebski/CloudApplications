@@ -27,9 +27,22 @@ export default function useAPI(props: useApiProps) {
         await setLoading(false);
     }
 
-    function preparePath(candidate: string) {
-        return candidate.charAt(0) === "/" ? candidate.substring(1) : candidate;
+    async function post(path:string,newValue:any){
+        console.log("LOL");
+        let newPath = preparePath(path);
+        console.log(newValue);
+        await fetch(`${baseURL}${newPath}`,{
+            method: "POST", // or 'PUT'
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify(newValue),
+        });
     }
 
-    return [result, loading, get]
+    function preparePath(candidate: string) {
+        return candidate.charAt(0) === '/' ? candidate.substring(1) : candidate;
+    }
+
+    return [result, loading, get, post]
 }
