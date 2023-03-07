@@ -8,7 +8,7 @@ export default function ControlledVideosTable() {
     const [res, setRes] = useState();
     const [load, setLoad] = useState(false);
 
-    let {result, loading, get} = useAPI({path: "keywords"});
+    let [result, loading, get] = useAPI({path: "keywords"});
 
     async function getData(newPath: string) {
         await setLoad(true);

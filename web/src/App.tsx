@@ -8,12 +8,12 @@ import VideoAddForm from "./components/videoAddForm/videoAddForm";
 
 
 function App() {
-    let {result,loading,get} = useAPI({path:"videos"});
+    let [result, loading, get] = useAPI({path: "videos"});
 
 
     return (
         <div className="App">
-            <VideosTable dataSource={result==undefined ? [] : result} loading={loading}/>
+            <VideosTable dataSource={result == undefined ? [] : result} loading={loading}/>
             <Button onClick={() => get("/videos")}>Get all</Button>
 
             <ControlledVideosTable/>
