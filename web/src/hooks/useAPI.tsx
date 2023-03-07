@@ -5,31 +5,21 @@
 import {useEffect, useState} from "react";
 
 export interface useApiProps {
-    path: "get_all" | "get_by_id" | "videos"|"keywords"
+    path: "get_all" | "get_by_id" | "videos" | "keywords"
 }
-
 
 export default function useAPI(props: useApiProps) {
     let path = preparePath(props.path);
-    console.log(path);
-    const baseURL = "http://192.168.1.9:5000/";
+
+    const baseURL = "http://127.0.01:5000/";
     const [result, setResult] = useState();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    //fetch on create
-    useEffect(()=>{
-        get(path);
-    },[])
-
-    async function get(newPath: string|null|undefined){
+    async function get(newPath: string) {
         await setLoading(true);
 
-        if(newPath){path = preparePath(newPath);}
-        console.log(baseURL + path);
-        let results = await fetch(baseURL + path);
-        console.log(results);
-        //parse object from JSON
-        console.log(await results.text())
+        let results = await fetch(baseURL + newPath);
+
         let objTemp = await results.json();
 
         await setResult(() => objTemp);
