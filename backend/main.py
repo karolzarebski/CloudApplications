@@ -1,9 +1,7 @@
 import json
 from flask import Flask, make_response, request
 from flask_cors import CORS
-
 from database import DatabaseService
-from neuralNet import NeuralNet
 
 app = Flask(__name__)
 CORS(app)
@@ -20,7 +18,6 @@ def create_instances():
         database_configuration = configuration['Database']
 
     database_service = DatabaseService(database_configuration)
-    neural_net = NeuralNet(database_service.db)
     print(f"Created all instances")
 
 

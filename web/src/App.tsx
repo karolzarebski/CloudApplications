@@ -10,6 +10,9 @@ import VideoAddForm from "./components/videoAddForm/videoAddForm";
 function App() {
     let [result, loading, get] = useAPI({path: "videos"});
 
+    useEffect(()=>{
+        get("/videos");
+    },[])
 
     return (
         <div className="App">
