@@ -40,7 +40,7 @@ export default function ControlledVideosTable() {
     return <div>
         <Button onClick={() => get("/keywords")}>Click</Button>
         <Select style={{minWidth: "350px"}} options={keywords}
-                onSelect={(selected) => getData(`/videos//${selected}`)}/>
+                onSelect={(selected) => getData(`/video//${selected}`)}/>
         <VideosTable loading={load} dataSource={res == undefined ? [] : res}/>
     </div>
 }

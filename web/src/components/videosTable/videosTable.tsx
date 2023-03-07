@@ -72,11 +72,11 @@ export default function VideosTable(props: VideosTableProps) {
                 likes: record.Likes,
                 comments: record.Comments,
                 views: record.Views,
-                avg_likes_comments_views_per_day: record.Avg_likes_comments_views_per_day
+                avg_likes_comments_views_per_day: record.avg_likes_comments_views_per_day
             } as DataSourceProps
         }
     })
 
-    return <Table loading={props.loading} dataSource={xd} columns={columns} pagination={{pageSize: 5}}/>
+    return <Table loading={props.loading} dataSource={xd} columns={props.withAvg ? columnsWithAvg : columns} pagination={{pageSize: 5}}/>
 }
 

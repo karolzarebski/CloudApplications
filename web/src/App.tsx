@@ -26,7 +26,7 @@ function App() {
 
             <VideosTable withAvg={true} dataSource={res == undefined ? [] : res} loading={load}/>
             <Button onClick={() => {
-                get("/stats")
+                getAvg("/stats")
             }}>Get all</Button>
         </div>
     );
