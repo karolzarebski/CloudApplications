@@ -75,3 +75,11 @@ class DatabaseService:
         self.db.commit()
         db_cursor.close()
         return self.get_by_id(data['Id'])
+
+    def get_keywords(self):
+        db_cursor = self.db.cursor(buffered=True, dictionary=True)
+        db_cursor.execute('''SELECT DISTINCT Keyword FROM VideoData''')
+        data = db_cursor.fetchall()
+        db_cursor.close()
+        return data
+

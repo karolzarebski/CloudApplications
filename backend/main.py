@@ -66,9 +66,19 @@ def get_stats():
 
 
 @app.route('/video/<keyword>')
-def page(keyword):
+def get_by_keyword(keyword):
     try:
         return make_response(database_service.get_by_keyword(keyword))
+    except Exception as ex:
+        return make_response({
+            "error": str(ex)
+        }, 400)
+
+
+@app.route('/keywords')
+def get_keywords():
+    try:
+        return make_response(database_service.get_keywords())
     except Exception as ex:
         return make_response({
             "error": str(ex)
