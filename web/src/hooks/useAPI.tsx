@@ -5,14 +5,14 @@
 import {useEffect, useState} from "react";
 
 export interface useApiProps {
-    path: "get_all" | "get_by_id" | "videos",
+    path: "get_all" | "get_by_id" | "videos"|"keywords"
 }
 
 
 export default function useAPI(props: useApiProps) {
     let path = preparePath(props.path);
     console.log(path);
-    const baseURL = process.env.REACT_APP_BASE_URL;
+    const baseURL = "http://192.168.1.9:5000/";
     const [result, setResult] = useState();
     const [loading, setLoading] = useState(true);
 
@@ -26,10 +26,12 @@ export default function useAPI(props: useApiProps) {
 
         if(newPath){path = preparePath(newPath);}
         console.log(baseURL + path);
-        let data = await fetch(baseURL + path);
-        console.log(data);
+        let results = await fetch(baseURL + path);
+        console.log(results);
         //parse object from JSON
-        let objTemp = await data.json();
+        console.log(await results.text())
+        let objTemp = await results.json();
+
         await setResult(() => objTemp);
 
         await setLoading(false);
