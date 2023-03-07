@@ -11,7 +11,7 @@ export interface useApiProps {
 export default function useAPI(props: useApiProps) {
     let path = preparePath(props.path);
 
-    const baseURL = "http://127.0.01:5000/";
+    const baseURL = "http://127.0.0.1:5000/";
     const [result, setResult] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
 
