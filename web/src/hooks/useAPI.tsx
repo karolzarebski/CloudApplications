@@ -18,7 +18,7 @@ export default function useAPI(props: useApiProps) {
 
     //fetch on create
     useEffect(()=>{
-        get(path);
+        //get(path);d
     },[])
 
     async function get(newPath: string|null|undefined){
