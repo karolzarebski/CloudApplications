@@ -27,15 +27,22 @@ export default function useAPI(props: useApiProps) {
         await setLoading(false);
     }
 
-    async function set(path:string,newValue:any){
-        let results = await fetch(`${baseURL}${path}/`);
-
-        let objTemp = await results.json();
+    async function post(path:string,newValue:any){
+        console.log("LOL");
+        let newPath = preparePath(path);
+        console.log(newValue);
+        await fetch(`${baseURL}${newPath}`,{
+            method: "POST", // or 'PUT'
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify(newValue),
+        });
     }
 
     function preparePath(candidate: string) {
-        return candidate.charAt(0) === "/" ? candidate.substring(1) : candidate;
+        return candidate.charAt(0) === '/' ? candidate.substring(1) : candidate;
     }
 
-    return [result, loading, get]
+    return [result, loading, get, post]
 }
