@@ -23,7 +23,7 @@ def create_instances():
 
 
 @app.route('/videos', methods=['GET', 'POST', 'PUT'])
-def get_all_product_reviews():
+def get_all():
     try:
         if request.method == 'GET':
             if request.args:
@@ -63,6 +63,16 @@ def get_stats():
     return make_response({
         "response": "test"
     })
+
+
+@app.route('/video/<video_id>')
+def page(video_id):
+    try:
+        return make_response(database_service.getget_by_id(video_id))
+    except Exception as ex:
+        return make_response({
+            "error": str(ex)
+        }, 400)
 
 
 if __name__ == "__main__":
