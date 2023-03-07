@@ -1,39 +1,18 @@
-import useAPI from "../../hooks/useAPI";
 import {Table} from "antd";
+import VideosTable from "./videosTable";
+import {useEffect, useState} from "react";
+import useAPI from "../../hooks/useAPI";
 
-export interface dataSourceProps{
-    id:number,
-    key:string,
-    title:string,
-    publishedAt:string,
-    keyword:string,
-    likes:number,
-    comments:number,
-    views:number
-}
+export default function ControlledVideosTable(props: VideosTableProps) {
+    const [keywords, setKeywords] = useState<string>();
+    const [selected, setSelectedKeyword] = useState<string>();
+    let {keywordResults, keywordLoading, getKeywords} = useAPI("/keywords");
 
-interface columnProps{
-    title:string,
-    dataIndex:string,
-    key:string
-}
-
-interface VideosTableProps{
-    dataSource:dataSourceProps[],
-    loading:boolean
-}
-
-export default function VideosTable(props:VideosTableProps){
-    const columns = [
-        {title:"Id",dataIndex:"id",key:"id"},
-        {title:"Tytuł",dataIndex:"title",key:"title"},
-        {title:"Dodano",dataIndex:"publishedAt",key:"publishedAt"},
-        {title:"Słowo kluczowe",dataIndex:"keyword",key:"keyword"},
-        {title:"Polubienia",dataIndex:"likes",key:"likes"},
-        {title:"Komentarze",dataIndex:"comments",key:"comments"},
-        {title:"Wyświetlenia",dataIndex:"views",key:"views"}
-    ] as columnProps[];
+    useEffect(()=>{
+        console.log(keywordResults);
+        
+    },[keywordResults])
 
 
-    return <Table loading={props.loading} dataSource={props.dataSource} columns={columns} pagination={{pageSize:10}}/>
+    return <VideosTable dataSource={props.dataSource} loading={}/>
 }
