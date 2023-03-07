@@ -27,6 +27,12 @@ export default function useAPI(props: useApiProps) {
         await setLoading(false);
     }
 
+    async function set(path:string,newValue:any){
+        let results = await fetch(`${baseURL}${path}/`);
+
+        let objTemp = await results.json();
+    }
+
     function preparePath(candidate: string) {
         return candidate.charAt(0) === "/" ? candidate.substring(1) : candidate;
     }
