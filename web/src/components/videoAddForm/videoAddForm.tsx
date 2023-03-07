@@ -14,20 +14,23 @@ export default function VideoAddForm() {
 
     const handleOk = () => {
         setIsModalOpen(false);
-        message.success('Dodano do bazy danych!');
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
     const onFinish = async (values: any) => {
-        //await post("videos", values);
-        console.log(values)
-        handleOk();
+        try {
+            await post("videos", values);
+            message.success('Dodano do bazy danych!');
+            handleOk();
+        } catch (error) {
+            message.error('Error: Błąd połączania z API!');
+        }
     };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
-        handleCancel();
     };
 
     return <div>
@@ -39,12 +42,13 @@ export default function VideoAddForm() {
                 <Button type="primary"  danger onClick={handleCancel}>
                     Anuluj
                 </Button>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" form="submitForm" key="submit" htmlType="submit">
                     Dodaj
                 </Button>
             </Form.Item>}
         >
             <Form
+                id="submitForm"
                 name="addVideoForm"
                 labelCol={{span: 8}}
                 wrapperCol={{span: 16}}
