@@ -82,4 +82,3 @@ class DatabaseService:
         data = db_cursor.fetchall()
         db_cursor.close()
         return data
-

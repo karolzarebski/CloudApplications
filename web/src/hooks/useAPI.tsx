@@ -5,7 +5,7 @@
 import {useEffect, useState} from "react";
 
 export interface useApiProps {
-    path: "get_all" | "get_by_id" | "videos" | "keywords"
+    path: "get_all" | "get_by_id" | "videos" | "keywords" | "stats"
 }
 
 export default function useAPI(props: useApiProps) {

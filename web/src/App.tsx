@@ -9,18 +9,25 @@ import VideoAddForm from "./components/videoAddForm/videoAddForm";
 
 function App() {
     let [result, loading, get] = useAPI({path: "videos"});
+    let [res, load, getAvg] = useAPI({path:"stats"})
 
     useEffect(()=>{
-        get("/videos");
     },[])
 
     return (
         <div className="App">
             <VideosTable dataSource={result == undefined ? [] : result} loading={loading}/>
-            <Button onClick={() => get("/videos")}>Get all</Button>
+            <Button onClick={() => {
+                get("/videos")
+            }}>Get all</Button>
 
             <ControlledVideosTable/>
             <VideoAddForm/>
+
+            <VideosTable withAvg={true} dataSource={res == undefined ? [] : res} loading={load}/>
+            <Button onClick={() => {
+                getAvg("/stats")
+            }}>Get all</Button>
         </div>
     );
 }
