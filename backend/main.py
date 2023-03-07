@@ -3,11 +3,13 @@ from flask import Flask, make_response, request
 from flask_cors import CORS
 
 from database import DatabaseService
+from neuralNet import NeuralNet
 
 app = Flask(__name__)
 CORS(app)
 
 database_service = None
+neural_net = None
 
 
 def create_instances():
@@ -18,7 +20,7 @@ def create_instances():
         database_configuration = configuration['Database']
 
     database_service = DatabaseService(database_configuration)
-
+    neural_net = NeuralNet(database_service.db)
     print(f"Created all instances")
 
 
@@ -43,6 +45,24 @@ def get_stats():
 
 
 @app.route('/videos/<keyword>')
+def predict_view_count(title, like_count, comment_count):
+
+    return 100
+
+
+@app.route("/predict", methods=['GET'])
+def get_prediction():
+    title = request.json['title']
+    like_count = request.json['like_count']
+    comment_count = request.json['comment_count']
+    if like_count is None or like_count is None or comment_count is None:
+        return make_response({"response": "Missing aguments"}, 402)
+
+    predicted_views = predict_view_count(title, like_count, comment_count)
+    return make_response({'predicted_views': predicted_views})
+
+
+@app.route('/video/<keyword>')
 def get_by_keyword(keyword):
     try:
         return make_response(database_service.get_by_keyword(keyword))
