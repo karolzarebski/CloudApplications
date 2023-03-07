@@ -2,6 +2,8 @@ import json
 from flask import Flask, make_response, request
 from flask_cors import CORS
 from database import DatabaseService
+import pandas as pd
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -51,28 +53,15 @@ def get_all():
 
 @app.route("/stats", methods=['GET'])
 def get_stats():
-    return make_response({
-        "response": "test"
-    })
+    videos = database_service.get_all_data()
+    all_data = pd.DataFrame(videos)
+    all_data['avg_likes_comments_views_per_day'] = (all_data['Likes'] + all_data['Comments'] + all_data['Views']) / (
+                datetime.now().date() - pd.to_datetime(all_data["PublishedAt"]).dt.date).dt.days
 
+    response = make_response(all_data.to_json(orient='records'))
+    response.headers['Content-Type'] = 'application/json'
 
-@app.route('/videos/<keyword>')
-def predict_view_count(title, like_count, comment_count):
-
-    return 100
-
-
-@app.route("/predict", methods=['GET'])
-def get_prediction():
-    title = request.json['title']
-    like_count = request.json['like_count']
-    comment_count = request.json['comment_count']
-    if like_count is None or like_count is None or comment_count is None:
-        return make_response({"response": "Missing aguments"}, 402)
-
-    predicted_views = predict_view_count(title, like_count, comment_count)
-    return make_response({'predicted_views': predicted_views})
-
+    return response
 
 @app.route('/video/<keyword>')
 def get_by_keyword(keyword):
