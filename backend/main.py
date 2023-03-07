@@ -65,10 +65,10 @@ def get_stats():
     })
 
 
-@app.route('/video/<video_id>')
-def page(video_id):
+@app.route('/video/<keyword>')
+def page(keyword):
     try:
-        return make_response(database_service.getget_by_id(video_id))
+        return make_response(database_service.get_by_keyword(keyword))
     except Exception as ex:
         return make_response({
             "error": str(ex)
