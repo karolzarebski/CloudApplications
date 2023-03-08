@@ -3,15 +3,16 @@ import mysql.connector
 
 class DatabaseService:
     def __init__(self, database_configuration):
-        self.db = mysql.connector.connect(**database_configuration)
-
+        self.db = None
+        self.conf = database_configuration
         self.create_database()
 
     def __del__(self):
         self.db.close()
 
     def create_database(self):
-        self.db.cursor().execute('''
+        connection = mysql.connector.connect(**self.conf)
+        connection.cursor().execute('''
             CREATE TABLE IF NOT EXISTS VideoData (
               Id INT PRIMARY KEY AUTO_INCREMENT,
               Title VARCHAR(255) NOT NULL,
@@ -23,9 +24,11 @@ class DatabaseService:
               Views DOUBLE
             );
         ''')
+        connection.cursor().close()
+        connection.close()
 
     def add_data(self, data):
-        db_cursor = self.db.cursor(dictionary=True)
+        db_cursor = self.db.cursor(dictionary=True, buffered=True)
         db_cursor.execute('''INSERT INTO VideoData (Title, VideoId, PublishedAt, Keyword, Likes, Comments, Views) 
             VALUES (%s,%s,%s,%s,%s,%s,%s)''', (data['Title'], data['VideoId'], data['PublishedAt'], data['Keyword'],
                                                data['Likes'] if not data['Likes'] == '' else None,
@@ -38,10 +41,13 @@ class DatabaseService:
         return latest_entry
 
     def get_all_data(self):
-        db_cursor = self.db.cursor(buffered=True, dictionary=True)
-        db_cursor.execute('''SELECT * FROM VideoData''')
-        data = db_cursor.fetchall()
-        db_cursor.close()
+        connection = mysql.connector.connect(**self.conf)
+        cursor = connection.cursor(buffered=True, dictionary=True)
+
+        cursor.execute('''SELECT * FROM VideoData''')
+        data = cursor.fetchall()
+        cursor.close()
+        connection.close()
         return data
 
     def get_by_id(self, video_id):
