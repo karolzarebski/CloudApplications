@@ -112,11 +112,15 @@ class DatabaseService:
         connection = mysql.connector.connect(**self.database_configuration)
         db_cursor = connection.cursor(dictionary=True, buffered=True)
 
-        db_cursor.execute('''UPDATE VideoData SET Title = %s, VideoId = %s, PublishedAt = %s, Keyword = %s, Likes = %s,
-                            Comments = %s, Views = %s  WHERE Id = %s''', (data['Title'], data['VideoId'],
-                                                                          data['PublishedAt'], data['Keyword'],
-                                                                          data['Likes'], data['Comments'],
-                                                                          data['Views'], data['Id']))
+        db_cursor.execute(
+            '''UPDATE VideoData SET Title = %s, VideoId = %s, PublishedAt = %s, Keyword = %s, Likes = %s,
+                            Comments = %s, Views = %s  WHERE Id = %s''',
+            (data['Title'], data['VideoId'] if "VideoId" in data else None,
+             data['PublishedAt'] if 'PublishedAt' in data else None, data['Keyword'] if 'Keyword' in data else None,
+             data['Likes'] if 'Likes' in data else None, data['Comments'] if 'Comments' in data else None,
+             data['Views'] if 'Views' in data else None, data['Id'])
+        )
+
         connection.commit()
         db_cursor.close()
         connection.close()
