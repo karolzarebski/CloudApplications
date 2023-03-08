@@ -11,7 +11,7 @@ export default function ControlledVideosTable() {
 
     async function getData(newPath: string) {
         await setLoad(true);
-        const baseURL = "http://127.0.01:5000/";
+        const baseURL = process.env.REACT_APP_API;
         let results = await fetch(baseURL + newPath);
         let objTemp = await results.json();
         await setRes(() => objTemp);
@@ -21,7 +21,7 @@ export default function ControlledVideosTable() {
     async function getKeywords() {
         setLoadKeywords(true);
         try {
-            const data = await axios.get("http://127.0.0.1:5000/keywords")
+            const data = await axios.get(`${process.env.REACT_APP_API}/keywords`)
             console.log(data.data);
             setKeywords(data.data.map((record: any) => {
                 return {
@@ -45,7 +45,7 @@ export default function ControlledVideosTable() {
         <div style={{float: "left"}}>
             Wybierz kategorię: &nbsp; &nbsp;
             <Select style={{minWidth: "350px", marginBottom: "15px"}} options={keywords}
-                    onSelect={(selected) => getData(`/video//${selected}`)}/>
+                    onSelect={(selected) => getData(`/video/${selected}`)}/>
         </div>
         <VideosTable loading={load} dataSource={res == undefined ? [] : res}/>
     </div>

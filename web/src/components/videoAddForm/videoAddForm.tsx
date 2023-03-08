@@ -25,7 +25,7 @@ export default function VideoAddForm() {
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
             values.PublishedAt = `${year}-${month}-${day}`;
-            await axios.post("http://127.0.0.1:5000/video", values);
+            await axios.post(`${process.env.REACT_APP_API}/video`, values);
             message.success('Dodano do bazy danych!');
             handleOk();
         } catch (error) {
