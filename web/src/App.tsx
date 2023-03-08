@@ -35,6 +35,10 @@ function App() {
         setVideosAvgLoading(false);
     }
 
+    const refreshList = async () => {
+        await fetchAvgVideosData();
+    }
+
     useEffect(() => {
         fetchAllVideosData();
         fetchAvgVideosData();
@@ -57,7 +61,7 @@ function App() {
             </div>
             <div style={{marginBottom: "150px"}}>
                 <h1>Dodaj video:</h1>
-                <VideoAddForm/>
+                <VideoAddForm refreshList={refreshList}/>
             </div>
         </div>
     );

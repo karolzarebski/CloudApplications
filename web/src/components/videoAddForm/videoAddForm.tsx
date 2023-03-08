@@ -3,7 +3,7 @@ import {InputNumber, message} from "antd/lib";
 import {useState} from "react";
 import axios from "axios";
 
-export default function VideoAddForm() {
+export default function VideoAddForm(props: VideoAddFormProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -12,6 +12,7 @@ export default function VideoAddForm() {
 
     const handleOk = () => {
         setIsModalOpen(false);
+        props.refreshList();
     };
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -112,4 +113,8 @@ export default function VideoAddForm() {
             </Form>
         </Modal>
     </div>
+}
+
+interface VideoAddFormProps {
+    refreshList: () => void;
 }
