@@ -54,6 +54,10 @@ def get_all():
 @app.route("/stats", methods=['GET'])
 def get_stats():
     videos = database_service.get_all_data()
+
+    if not videos:
+        return make_response([])
+
     all_data = pd.DataFrame(videos)
     all_data['avg_likes_comments_views_per_day'] = (all_data['Likes'] + all_data['Comments'] + all_data['Views']) / (
                 datetime.now().date() - pd.to_datetime(all_data["PublishedAt"]).dt.date).dt.days
@@ -62,6 +66,7 @@ def get_stats():
     response.headers['Content-Type'] = 'application/json'
 
     return response
+
 
 @app.route('/video/<keyword>')
 def get_by_keyword(keyword):
@@ -85,4 +90,5 @@ def get_keywords():
 
 if __name__ == "__main__":
     create_instances()
+
     app.run()

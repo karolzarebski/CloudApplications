@@ -42,7 +42,7 @@ export default function ControlledVideosTable() {
     }, [])
 
     return <div>
-        <div style={{float:"left"}}>
+        <div style={{float: "left"}}>
             Wybierz kategorię: &nbsp; &nbsp;
             <Select style={{minWidth: "350px", marginBottom: "15px"}} options={keywords}
                     onSelect={(selected) => getData(`/video//${selected}`)}/>

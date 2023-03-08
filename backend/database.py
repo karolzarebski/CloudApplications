@@ -14,7 +14,7 @@ class DatabaseService:
             CREATE TABLE IF NOT EXISTS VideoData (
               Id INT PRIMARY KEY AUTO_INCREMENT,
               Title VARCHAR(255) NOT NULL,
-              VideoId VARCHAR(50) NOT NULL,
+              VideoId VARCHAR(50),
               PublishedAt DATE NOT NULL,
               Keyword VARCHAR(255),
               Likes DOUBLE,
@@ -30,11 +30,26 @@ class DatabaseService:
         connection = mysql.connector.connect(**self.database_configuration)
         db_cursor = connection.cursor(dictionary=True, buffered=True)
 
+        if 'Likes' in data and not data['Likes'] == '':
+            likes = data['Likes']
+        else:
+            likes = None
+
+        if 'Comments' in data and not data['Comments'] == '':
+            comments = data['Comments']
+        else:
+            comments = None
+
+        if 'Views' in data and not data['Views'] == '':
+            views = data['Views']
+        else:
+            views = None
+
         db_cursor.execute('''INSERT INTO VideoData (Title, VideoId, PublishedAt, Keyword, Likes, Comments, Views) 
-            VALUES (%s,%s,%s,%s,%s,%s,%s)''', (data['Title'], data['VideoId'], data['PublishedAt'], data['Keyword'],
-                                               data['Likes'] if not data['Likes'] == '' else None,
-                                               data['Comments'] if not data['Comments'] == '' else None,
-                                               data['Views'] if not data['Views'] == '' else None))
+            VALUES (%s,%s,%s,%s,%s,%s,%s)''', (data['Title'], data['VideoId'] if 'VideoId' in data else None,
+                                               data['PublishedAt'] if 'PublishedAt' in data else None,
+                                               data['Keyword'] if 'Keyword' in data else None,
+                                               likes, comments, views))
         connection.commit()
 
         db_cursor.execute('''SELECT * FROM VideoData WHERE Id = LAST_INSERT_ID()''')
@@ -117,5 +132,5 @@ class DatabaseService:
 
         db_cursor.close()
         connection.close()
-        
+
         return data
