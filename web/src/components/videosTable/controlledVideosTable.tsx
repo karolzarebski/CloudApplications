@@ -42,8 +42,11 @@ export default function ControlledVideosTable() {
     }, [])
 
     return <div>
-        <Select style={{minWidth: "350px"}} options={keywords}
-                onSelect={(selected) => getData(`/video//${selected}`)}/>
+        <div style={{float:"left"}}>
+            Wybierz kategorię: &nbsp; &nbsp;
+            <Select style={{minWidth: "350px", marginBottom: "15px"}} options={keywords}
+                    onSelect={(selected) => getData(`/video//${selected}`)}/>
+        </div>
         <VideosTable loading={load} dataSource={res == undefined ? [] : res}/>
     </div>
 }

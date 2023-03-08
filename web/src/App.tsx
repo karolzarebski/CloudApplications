@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import VideosTable from "./components/videosTable/videosTable";
-import {Button} from "antd";
 import ControlledVideosTable from "./components/videosTable/controlledVideosTable";
 import VideoAddForm from "./components/videoAddForm/videoAddForm";
 import axios from "axios";
@@ -43,10 +42,16 @@ function App() {
 
     return (
         <div className="App">
-            <VideosTable dataSource={videos == undefined ? [] : videos} loading={videosLoading}/>
+            <div style={{margin:"30px 150px 150px 150px"}}>
+                <VideosTable dataSource={videos == undefined ? [] : videos} loading={videosLoading}/>
+            </div>
+            <div style={{margin:"30px 150px 150px 150px"}}>
             <ControlledVideosTable/>
-            <VideosTable withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg} loading={videosAvgLoading}/>
-
+            </div>
+            <div style={{margin:"30px 150px 150px 150px"}}>
+            <VideosTable withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
+                         loading={videosAvgLoading}/>
+            </div>
             <VideoAddForm/>
 
         </div>
