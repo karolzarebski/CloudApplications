@@ -1,3 +1,5 @@
+import csv
+
 import mysql.connector
 
 
@@ -5,6 +7,32 @@ class DatabaseService:
     def __init__(self, database_configuration):
         self.database_configuration = database_configuration
         self.create_database()
+        self.seed_database()
+
+    def seed_database(self):
+        if self.get_count() > 1800:
+            return
+
+        print("Seeding database")
+
+        with open("data.csv", "r", encoding="utf8") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            json_format = []
+            for row in reader:
+                row_json = {}
+                for i in range(len(header)):
+                    data = row[i]
+                    row_json[header[i]] = data
+                json_format.append(row_json)
+
+        for item in json_format:
+            try:
+                self.add_data(item)
+            except Exception as ex:
+                print(ex)
+                print(item)
+                return
 
     def create_database(self):
         connection = mysql.connector.connect(**self.database_configuration)
@@ -25,6 +53,18 @@ class DatabaseService:
 
         db_cursor.close()
         connection.close()
+
+    def get_count(self):
+        connection = mysql.connector.connect(**self.database_configuration)
+        db_cursor = connection.cursor(buffered=True)
+
+        db_cursor.execute('''SELECT COUNT(Id) FROM VideoData''')
+        response = db_cursor.fetchone()
+
+        db_cursor.close()
+        connection.close()
+
+        return response[0]
 
     def add_data(self, data):
         connection = mysql.connector.connect(**self.database_configuration)
