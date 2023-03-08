@@ -101,4 +101,4 @@ def get_keywords():
 if __name__ == "__main__":
     create_instances()
 
-    app.run()
+    app.run(host='0.0.0.0')

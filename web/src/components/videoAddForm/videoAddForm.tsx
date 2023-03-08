@@ -3,7 +3,6 @@ import {InputNumber, message} from "antd/lib";
 import {useState} from "react";
 import axios from "axios";
 
-
 export default function VideoAddForm() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,7 +24,7 @@ export default function VideoAddForm() {
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
             values.PublishedAt = `${year}-${month}-${day}`;
-            await axios.post(`${process.env.REACT_APP_API}/video`, values);
+            await axios.post(`${process.env.REACT_APP_API_URL}/video`, values);
             message.success('Dodano do bazy danych!');
             handleOk();
         } catch (error) {

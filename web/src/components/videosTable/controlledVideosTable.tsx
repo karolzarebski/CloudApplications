@@ -11,8 +11,7 @@ export default function ControlledVideosTable() {
 
     async function getData(newPath: string) {
         await setLoad(true);
-        const baseURL = process.env.REACT_APP_API;
-        let results = await fetch(baseURL + newPath);
+        let results = await fetch(process.env.REACT_APP_API_URL + newPath);
         let objTemp = await results.json();
         await setRes(() => objTemp);
         await setLoad(false);
@@ -21,7 +20,7 @@ export default function ControlledVideosTable() {
     async function getKeywords() {
         setLoadKeywords(true);
         try {
-            const data = await axios.get(`${process.env.REACT_APP_API}/keywords`)
+            const data = await axios.get(`${process.env.REACT_APP_API_URL}/keywords`)
             console.log(data.data);
             setKeywords(data.data.map((record: any) => {
                 return {

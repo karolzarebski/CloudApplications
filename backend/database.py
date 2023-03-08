@@ -1,11 +1,15 @@
 import csv
+import os
+import time
 
 import mysql.connector
 
 
 class DatabaseService:
     def __init__(self, database_configuration):
+        database_configuration['host'] = os.getenv("DATABASE_LOCATION")
         self.database_configuration = database_configuration
+
         self.create_database()
         self.seed_database()
 
@@ -35,24 +39,35 @@ class DatabaseService:
                 return
 
     def create_database(self):
-        connection = mysql.connector.connect(**self.database_configuration)
-        db_cursor = connection.cursor()
+        for _ in range (10):
+            try:
+                connection = mysql.connector.connect(**self.database_configuration)
+                db_cursor = connection.cursor()
 
-        db_cursor.execute('''
-            CREATE TABLE IF NOT EXISTS VideoData (
-              Id INT PRIMARY KEY AUTO_INCREMENT,
-              Title VARCHAR(255) NOT NULL,
-              VideoId VARCHAR(50),
-              PublishedAt DATE NOT NULL,
-              Keyword VARCHAR(255),
-              Likes DOUBLE,
-              Comments DOUBLE,
-              Views DOUBLE
-            );
-        ''')
+                if connection.is_connected():
+                    print("Connected to database")
 
-        db_cursor.close()
-        connection.close()
+                db_cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS VideoData (
+                      Id INT PRIMARY KEY AUTO_INCREMENT,
+                      Title VARCHAR(255) NOT NULL,
+                      VideoId VARCHAR(50),
+                      PublishedAt DATE NOT NULL,
+                      Keyword VARCHAR(255),
+                      Likes DOUBLE,
+                      Comments DOUBLE,
+                      Views DOUBLE
+                    );
+                ''')
+
+                db_cursor.close()
+                connection.close()
+                return
+            except Exception as ex:
+                print(f"Exception ocurred while connecting to database: {ex}")
+                time.sleep(5)
+
+        print(f"Connection with database failed")
 
     def get_count(self):
         connection = mysql.connector.connect(**self.database_configuration)

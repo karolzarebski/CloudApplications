@@ -23,6 +23,8 @@ services:
       context: "../../backend"
     ports:
       - 5000:5000
+    environment:
+      DATABASE_LOCATION: 'CloudAppDb'
     depends_on:
       - db
     networks:
@@ -34,6 +36,8 @@ services:
     build:
       dockerfile: Dockerfile.production
       context: ../../web
+    environment:
+      REACT_APP_API_URL: 'http://localhost:5000'
     ports:
       - 80:80
     depends_on:

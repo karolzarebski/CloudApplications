@@ -16,7 +16,7 @@ function App() {
     const fetchAllVideosData = async () => {
         setVideosLoading(true);
         try {
-            const data = await axios.get(`${process.env.REACT_APP_API}/videos`)
+            const data = await axios.get(`${process.env.REACT_APP_API_URL}/videos`)
             setVideos(data.data);
         } catch (e: any) {
             console.log(e)
@@ -27,7 +27,7 @@ function App() {
     const fetchAvgVideosData = async () => {
         setVideosAvgLoading(true);
         try {
-            const data = await axios.get(`${process.env.REACT_APP_API}/stats`)
+            const data = await axios.get(`${process.env.REACT_APP_API_URL}/stats`)
             setVideosWithAvg(data.data);
         } catch (e: any) {
             console.log(e)
