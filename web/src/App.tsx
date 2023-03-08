@@ -36,6 +36,7 @@ function App() {
     }
 
     const refreshList = async () => {
+        await fetchAllVideosData();
         await fetchAvgVideosData();
     }
 
