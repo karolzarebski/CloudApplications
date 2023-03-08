@@ -1,7 +1,6 @@
 import {Button, Select, Table} from "antd";
 import VideosTable from "./videosTable";
 import {useEffect, useState} from "react";
-import useAPI from "../../hooks/useAPI";
 import axios from "axios";
 
 export default function ControlledVideosTable() {

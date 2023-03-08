@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import useAPI, {useApiProps} from "./hooks/useAPI";
 import VideosTable from "./components/videosTable/videosTable";
 import {Button} from "antd";
 import ControlledVideosTable from "./components/videosTable/controlledVideosTable";

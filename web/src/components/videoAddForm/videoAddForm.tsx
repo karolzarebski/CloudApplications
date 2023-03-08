@@ -1,12 +1,11 @@
 import {Button, Form, Input, Modal} from 'antd';
 import {InputNumber, message} from "antd/lib";
-import useAPI from "../../hooks/useAPI";
 import {useState} from "react";
+import axios from "axios";
 
 
 export default function VideoAddForm() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [result, loading, get, post] = useAPI({path: "videos"})
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -26,7 +25,7 @@ export default function VideoAddForm() {
             let month = date.getMonth() + 1;
             let year = date.getFullYear();
             values.PublishedAt = `${year}-${month}-${day}`;
-            await post("videos", values);
+            await axios.post("http://127.0.01:5000/videos", values);
             message.success('Dodano do bazy danych!');
             handleOk();
         } catch (error) {

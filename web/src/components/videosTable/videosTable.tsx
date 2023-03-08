@@ -1,4 +1,3 @@
-import useAPI from "../../hooks/useAPI";
 import {Table} from "antd";
 import {useEffect} from "react";
 import {ColumnsType} from "antd/es/table";
