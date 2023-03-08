@@ -42,14 +42,14 @@ export default function VideoAddForm() {
             Dodaj wideo
         </Button>
         <Modal title="Dodaj wideo" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}
-            footer={ <Form.Item wrapperCol={{offset: 8, span: 16}}>
-                <Button type="primary"  danger onClick={handleCancel}>
-                    Anuluj
-                </Button>
-                <Button type="primary" form="submitForm" key="submit" htmlType="submit">
-                    Dodaj
-                </Button>
-            </Form.Item>}
+               footer={<Form.Item wrapperCol={{offset: 8, span: 16}}>
+                   <Button type="primary" danger onClick={handleCancel}>
+                       Anuluj
+                   </Button>
+                   <Button type="primary" form="submitForm" key="submit" htmlType="submit">
+                       Dodaj
+                   </Button>
+               </Form.Item>}
         >
             <Form
                 id="submitForm"
@@ -91,7 +91,7 @@ export default function VideoAddForm() {
                     name="Likes"
                     rules={[{required: false}]}
                 >
-                    <InputNumber min={0}/>
+                    <InputNumber min={0} style={{width: "100%"}}/>
                 </Form.Item>
 
                 <Form.Item
@@ -99,7 +99,7 @@ export default function VideoAddForm() {
                     name="Comments"
                     rules={[{required: false}]}
                 >
-                    <InputNumber min={0}/>
+                    <InputNumber min={0} style={{width: "100%"}}/>
                 </Form.Item>
 
                 <Form.Item
@@ -107,7 +107,7 @@ export default function VideoAddForm() {
                     name="Views"
                     rules={[{required: false}]}
                 >
-                    <InputNumber min={0}/>
+                    <InputNumber min={0} style={{width: "100%"}}/>
                 </Form.Item>
 
             </Form>
