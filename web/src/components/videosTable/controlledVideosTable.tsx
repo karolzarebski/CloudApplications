@@ -14,11 +14,8 @@ export default function ControlledVideosTable() {
         await setLoad(true);
         const baseURL = "http://127.0.01:5000/";
         let results = await fetch(baseURL + newPath);
-
         let objTemp = await results.json();
-
         await setRes(() => objTemp);
-
         await setLoad(false);
     }
 
@@ -26,7 +23,7 @@ export default function ControlledVideosTable() {
     // let {data, dataLoading, getData} = useAPI("/keywords");
 
     useEffect(() => {
-        console.log("A");
+
         if (result != undefined) {
             setKeywords((result as []).map((record: any) => {
                 return {

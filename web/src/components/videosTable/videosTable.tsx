@@ -58,7 +58,6 @@ export default function VideosTable(props: VideosTableProps) {
     ]
 
     const xd: DataSourceProps[] | undefined = props.dataSource?.map((record: any, idx) => {
-        console.log(record);
         if (!props.withAvg) {
             return {
                 id: record.Id,
