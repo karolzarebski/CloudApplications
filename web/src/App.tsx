@@ -42,16 +42,20 @@ function App() {
 
     return (
         <div className="App">
-            <div style={{margin:"30px 150px 150px 150px"}}>
+            <div style={{margin: "30px 150px 60px 150px"}}>
+                <h1>Tabela wszystkich wpisów:</h1>
                 <VideosTable dataSource={videos == undefined ? [] : videos} loading={videosLoading}/>
             </div>
-            <div style={{margin:"30px 150px 150px 150px"}}>
-            <ControlledVideosTable/>
+            <div style={{margin: "30px 150px 150px 150px"}}>
+                <h1>Tabela wpisów z wybranej kategorii:</h1>
+                <ControlledVideosTable/>
             </div>
-            <div style={{margin:"30px 150px 150px 150px"}}>
-            <VideosTable withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
-                         loading={videosAvgLoading}/>
+            <div style={{margin: "30px 150px 150px 150px"}}>
+                <h1>Tabela top100 wpisów o największej aktywności/dzień:</h1>
+                <VideosTable withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
+                             loading={videosAvgLoading}/>
             </div>
+            <h1>Dodaj video:</h1>
             <VideoAddForm/>
 
         </div>
