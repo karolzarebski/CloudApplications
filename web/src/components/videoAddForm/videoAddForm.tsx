@@ -38,7 +38,7 @@ export default function VideoAddForm() {
     };
 
     return <div>
-        <Button type="primary" onClick={showModal}>
+        <Button type="primary" onClick={showModal} style={{fontSize: "16px"}}>
             Dodaj wideo
         </Button>
         <Modal title="Dodaj wideo" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}

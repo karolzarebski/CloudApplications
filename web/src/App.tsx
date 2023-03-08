@@ -55,9 +55,10 @@ function App() {
                 <VideosTable withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
                              loading={videosAvgLoading}/>
             </div>
-            <h1>Dodaj video:</h1>
-            <VideoAddForm/>
-
+            <div style={{marginBottom: "150px"}}>
+                <h1>Dodaj video:</h1>
+                <VideoAddForm/>
+            </div>
         </div>
     );
 }
