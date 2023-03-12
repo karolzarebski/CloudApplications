@@ -50,14 +50,14 @@ class DatabaseService:
                 db_cursor.execute('''
                     CREATE TABLE IF NOT EXISTS VideoData (
                       Id INT PRIMARY KEY AUTO_INCREMENT,
-                      Title VARCHAR(255) NOT NULL,
-                      VideoId VARCHAR(50),
+                      Title TEXT CHARACTER SET utf8mb4 NOT NULL,
+                      VideoId VARCHAR(50) CHARACTER SET utf8mb4,
                       PublishedAt DATE NOT NULL,
-                      Keyword VARCHAR(255),
+                      Keyword VARCHAR(255) CHARACTER SET utf8mb4,
                       Likes DOUBLE,
                       Comments DOUBLE,
                       Views DOUBLE
-                    );
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
                 ''')
 
                 db_cursor.close()
