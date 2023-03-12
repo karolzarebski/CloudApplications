@@ -39,7 +39,7 @@ class DatabaseService:
                 return
 
     def create_database(self):
-        for _ in range (10):
+        for _ in range(10):
             try:
                 connection = mysql.connector.connect(**self.database_configuration)
                 db_cursor = connection.cursor()
@@ -64,7 +64,7 @@ class DatabaseService:
                 connection.close()
                 return
             except Exception as ex:
-                print(f"Exception ocurred while connecting to database: {ex}")
+                print(f"Exception occurred while connecting to database: {ex}")
                 time.sleep(5)
 
         print(f"Connection with database failed")

@@ -154,6 +154,5 @@ backend/.idea/
 support/development/docker-files/db/
 support/docker-files/db/
 support/production/docker-files/db/
-web/.idea/modules.xml
-web/.idea/vcs.xml
-web/.idea/web.iml
+web/.idea/
+.vagrant/

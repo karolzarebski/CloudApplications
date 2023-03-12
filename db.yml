@@ -1,0 +1,57 @@
+---
+- name: Database configuration
+  hosts: db
+  become: true
+
+  tasks:
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+
+  - name: Install PyMySQL module
+    apt:
+      name: python3-pymysql
+      state: present
+
+  - name: Install MySQL
+    apt:
+      name: mysql-server
+      state: present
+
+  - name: Create remote user
+    mysql_user:
+      name: user
+      password: zaq1@WSX
+      host: 192.168.56.2
+      state: present
+      priv: "*.*:ALL"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Create local user
+    mysql_user:
+      name: user_local
+      password: zaq1@WSX
+      host: localhost
+      state: present
+      priv: "*.*:ALL"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Create database
+    mysql_db:
+      name: cloud-app-db
+      state: present
+      login_user: user_local
+      login_password: zaq1@WSX
+
+  - name: Set bind-address in mysqld.cnf
+    lineinfile:
+      path: /etc/mysql/mysql.conf.d/mysqld.cnf
+      regexp: '^bind-address'
+      line: 'bind-address = 0.0.0.0'
+
+  - name: Restart MySQL service
+    service:
+      name: mysql
+      state: restarted
+
+

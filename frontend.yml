@@ -1,0 +1,40 @@
+- name: Frontend configuration
+  hosts: frontend
+  become: true
+
+  tasks:
+    - name: Install nginx
+      apt: 
+        name: nginx
+
+    - name: Install Node.js package
+      apt:
+        name: nodejs
+        state: latest
+
+    - name: Install npm package manager
+      apt:
+        name: npm
+        state: latest
+
+    - name: Clone repository
+      git:
+        repo: https://github.com/karolkarolski25/CloudApplications.git
+        dest: /home/vagrant/CloudApplications
+
+    - name: Install Node.js dependencies
+      npm:
+        path: /home/vagrant/CloudApplications/web
+
+    - name: Build the app
+      command: /usr/bin/npm run build
+      args:
+        chdir: /home/vagrant/CloudApplications/web
+      environment:
+        REACT_APP_API_URL: http://192.168.56.2:5000
+
+    - name: Copy frontend files
+      copy:
+        remote_src: yes
+        src: /home/vagrant/CloudApplications/web/build/
+        dest: /var/www/html/
