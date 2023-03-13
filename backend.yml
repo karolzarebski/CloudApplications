@@ -19,7 +19,8 @@
         state: present
 
     - name: Start python app
-      command: python3 main.py
+      shell: |
+        nohup python3 main.py > log.txt 2>&1 &
       args:
         chdir: /home/vagrant/CloudApplications/backend
       environment:
