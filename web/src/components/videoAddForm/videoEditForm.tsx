@@ -64,8 +64,8 @@ export default function VideoEditForm(props: VideoAddFormProps) {
             >
                 <Form.Item
                     label="Id"
-                    name="id"
-                    rules={[{required: true, message: 'Podaj tutuł'}]}
+                    name="Id"
+                    rules={[{required: true, message: 'Podaj Id'}]}
                 >
                     <Input/>
                 </Form.Item>
