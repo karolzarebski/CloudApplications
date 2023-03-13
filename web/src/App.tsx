@@ -4,6 +4,7 @@ import VideosTable from "./components/videosTable/videosTable";
 import ControlledVideosTable from "./components/videosTable/controlledVideosTable";
 import VideoAddForm from "./components/videoAddForm/videoAddForm";
 import axios from "axios";
+import VideoEditForm from "./components/videoAddForm/videoEditForm";
 
 
 function App() {
@@ -63,6 +64,11 @@ function App() {
             <div style={{marginBottom: "150px"}}>
                 <h1>Dodaj video:</h1>
                 <VideoAddForm refreshList={refreshList}/>
+            </div>
+
+            <div style={{marginBottom: "150px"}}>
+                <h1>Edytuj video:</h1>
+                <VideoEditForm refreshList={refreshList}/>
             </div>
         </div>
     );
