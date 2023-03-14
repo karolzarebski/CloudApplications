@@ -58,17 +58,13 @@ function App() {
             </div>
             <div style={{margin: "30px 150px 150px 150px"}}>
                 <h1>Tabela top100 wpisów o największej aktywności/dzień:</h1>
-                <VideosTable refreshList={refreshList} withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
+                <VideosTable refreshList={refreshList} withAvg={true}
+                             dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
                              loading={videosAvgLoading}/>
             </div>
             <div style={{marginBottom: "150px"}}>
                 <h1>Dodaj video:</h1>
                 <VideoAddForm refreshList={refreshList}/>
-            </div>
-
-            <div style={{marginBottom: "150px"}}>
-                <h1>Edytuj video:</h1>
-                <VideoEditForm refreshList={refreshList}/>
             </div>
         </div>
     );
