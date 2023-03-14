@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import VideosTable from "./components/videosTable/videosTable";
+import VideosTable, {testDataSource} from "./components/videosTable/videosTable";
 import ControlledVideosTable from "./components/videosTable/controlledVideosTable";
 import VideoAddForm from "./components/videoAddForm/videoAddForm";
 import axios from "axios";
@@ -50,7 +50,7 @@ function App() {
         <div className="App">
             <div style={{margin: "30px 150px 60px 150px"}}>
                 <h1>Tabela wszystkich wpisów:</h1>
-                <VideosTable dataSource={videos == undefined ? [] : videos} loading={videosLoading}/>
+                <VideosTable refreshList={refreshList} dataSource={testDataSource} loading={videosLoading}/>
             </div>
             <div style={{margin: "30px 150px 150px 150px"}}>
                 <h1>Tabela wpisów z wybranej kategorii:</h1>
@@ -58,7 +58,7 @@ function App() {
             </div>
             <div style={{margin: "30px 150px 150px 150px"}}>
                 <h1>Tabela top100 wpisów o największej aktywności/dzień:</h1>
-                <VideosTable withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
+                <VideosTable refreshList={refreshList} withAvg={true} dataSource={videosWithAvg == undefined ? [] : videosWithAvg}
                              loading={videosAvgLoading}/>
             </div>
             <div style={{marginBottom: "150px"}}>
