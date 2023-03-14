@@ -50,7 +50,7 @@ function App() {
         <div className="App">
             <div style={{margin: "30px 150px 60px 150px"}}>
                 <h1>Tabela wszystkich wpisów:</h1>
-                <VideosTable refreshList={refreshList} dataSource={testDataSource} loading={videosLoading}/>
+                <VideosTable refreshList={refreshList} dataSource={videos ? videos : []} loading={videosLoading}/>
             </div>
             <div style={{margin: "30px 150px 150px 150px"}}>
                 <h1>Tabela wpisów z wybranej kategorii:</h1>
