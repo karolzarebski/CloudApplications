@@ -1,6 +1,30 @@
-import {Table} from "antd";
+import {Button, Table} from "antd";
 import {useEffect} from "react";
 import {ColumnsType} from "antd/es/table";
+import VideoEditForm from "../videoAddForm/videoEditForm";
+
+export const testDataSource:any = [
+    {
+        Id: 1,
+        Key: 1,
+        Title: "1",
+        PublishedAt:"12-12-2022",
+        Keyword:"a",
+        Likes:1213,
+        Comments:1231,
+        Views:123123
+    },
+    {
+        Id: 2,
+        Key: 2,
+        Title: "asdfasdf1",
+        PublishedAt:"12-08-2022",
+        Keyword:"aasdfsaf",
+        Likes:51213,
+        Comments:11,
+        Views:12313423
+    },
+]
 
 export interface DataSourceProps {
     id: number,
@@ -23,10 +47,16 @@ interface columnProps {
 interface VideosTableProps {
     dataSource?: DataSourceProps[],
     loading: boolean,
-    withAvg?: boolean
+    withAvg?: boolean,
+    refreshList?:any;
 }
 
 export default function VideosTable(props: VideosTableProps) {
+
+    const onEditClicked = (record: DataSourceProps) => {
+        console.log(record);
+    }
+
     const columns: ColumnsType<DataSourceProps> = [
         {title: "Id", dataIndex: "id", key: "id"},
         {title: "Tytuł", dataIndex: "title", key: "title"},
@@ -35,7 +65,13 @@ export default function VideosTable(props: VideosTableProps) {
         {title: "Polubienia", dataIndex: "likes", key: "likes"},
         {title: "Komentarze", dataIndex: "comments", key: "comments"},
         {title: "Wyświetlenia", dataIndex: "views", key: "views"},
-    ] as columnProps[];
+        {
+            title: "Edytuj",
+            dataIndex: "x",
+            key: "x",
+            render: (value, record, idx) => <VideoEditForm initValues={record} refreshList={props.refreshList}/>
+        },
+    ];
 
     const columnsWithAvg: ColumnsType<DataSourceProps> = [
         {title: "Id", dataIndex: "id", key: "id"},

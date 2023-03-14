@@ -1,10 +1,12 @@
 import {Button, Form, Input, Modal} from 'antd';
 import {InputNumber, message} from "antd/lib";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {DataSourceProps} from "../videosTable/videosTable";
 
 export default function VideoEditForm(props: VideoAddFormProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [initValues, setInitValues] = useState<any>();
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -37,6 +39,22 @@ export default function VideoEditForm(props: VideoAddFormProps) {
         console.log('Failed:', errorInfo);
     };
 
+    useEffect(() => {
+            console.log(props.initValues);
+            setInitValues({
+                Id: props.initValues?.id,
+                Title: props.initValues?.title,
+                PublishedAt: props.initValues?.publishedAt,
+                Keyword: props.initValues?.keyword,
+                Likes: props.initValues?.likes,
+                Comments: props.initValues?.comments,
+                Views: props.initValues?.views,
+                VideoId: props.initValues?.videoId
+            })
+        }
+        , [props.initValues])
+
+
     return <div>
         <Button type="primary" onClick={showModal} style={{fontSize: "16px"}}>
             Edytuj wideo
@@ -57,7 +75,7 @@ export default function VideoEditForm(props: VideoAddFormProps) {
                 labelCol={{span: 8}}
                 wrapperCol={{span: 16}}
                 style={{maxWidth: 600}}
-                // initialValues={{remember: true}}
+                initialValues={initValues}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
@@ -65,6 +83,7 @@ export default function VideoEditForm(props: VideoAddFormProps) {
                 <Form.Item
                     label="Id"
                     name="Id"
+                    hidden={true}
                     rules={[{required: true, message: 'Podaj Id'}]}
                 >
                     <Input/>
@@ -80,14 +99,6 @@ export default function VideoEditForm(props: VideoAddFormProps) {
                 <Form.Item
                     label="Słowo kluczowe"
                     name="Keyword"
-                    rules={[{required: false}]}
-                >
-                    <Input/>
-                </Form.Item>
-
-                <Form.Item
-                    label="Wideo Id"
-                    name="VideoId"
                     rules={[{required: false}]}
                 >
                     <Input/>
@@ -124,4 +135,5 @@ export default function VideoEditForm(props: VideoAddFormProps) {
 
 interface VideoAddFormProps {
     refreshList: () => void;
+    initValues?: any;
 }
