@@ -9,6 +9,9 @@ spec:
   - image: frontend:kubernetes
     name: frontend-container
     imagePullPolicy: IfNotPresent
+    env:
+      - name: REACT_APP_API_URL
+        value: http://localhost:5000
     ports:
       - containerPort: 5173
         name: http

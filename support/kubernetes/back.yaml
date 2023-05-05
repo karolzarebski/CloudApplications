@@ -9,6 +9,9 @@ spec:
   - image: production_backend
     name: backend-container 
     imagePullPolicy: IfNotPresent
+    env:
+      - name: DATABASE_LOCATION
+        value: CloudAppDb
     ports:
       - containerPort: 8000
         name: http
