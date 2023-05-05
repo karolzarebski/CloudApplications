@@ -3,7 +3,7 @@ kind: Cluster
 nodes:
   - extraPortMappings:
     - containerPort: 30020
-      hostPort: 27017
+      hostPort: 3306
     - containerPort: 30010
       hostPort: 8080
     - containerPort: 30000

@@ -6,7 +6,7 @@ metadata:
     app: backend
 spec:
   containers:
-  - image: cloudapps:backend
+  - image: production_backend
     name: backend-container
     imagePullPolicy: IfNotPresent
     ports:
