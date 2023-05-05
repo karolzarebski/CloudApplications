@@ -10,8 +10,14 @@ spec:
     name: database-container
     imagePullPolicy: IfNotPresent
     env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: zaq1@WSX
+     - name: MYSQL_DATABASE
+       value: cloud-app-db
+     - name: MYSQL_PASSWORD
+       value: zaq1@WSX
+     - name: MYSQL_ROOT_PASSWORD
+       value: zaq1@WSX
+     - name: MYSQL_USER
+       value: user
     ports:
       - containerPort: 3306
         name: http
