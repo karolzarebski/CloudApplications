@@ -5,6 +5,6 @@ nodes:
     - containerPort: 30020
       hostPort: 3306
     - containerPort: 30010
-      hostPort: 8000
+      hostPort: 5000
     - containerPort: 30000
       hostPort: 8080
