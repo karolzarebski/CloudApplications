@@ -13,7 +13,7 @@ spec:
       - name: REACT_APP_API_URL
         value: http://localhost:5000
     ports:
-      - containerPort: 5173
+      - containerPort: 80
         name: http
         protocol: TCP
 ---
@@ -30,6 +30,6 @@ spec:
   ports:
   - name: http
     protocol: TCP
-    port: 5173
-    targetPort: 5173
+    port: 80
+    targetPort: 80
     nodePort: 30000
