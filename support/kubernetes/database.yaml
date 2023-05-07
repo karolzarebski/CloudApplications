@@ -6,7 +6,7 @@ metadata:
     app: database
 spec:
   containers:
-  - image: mysql
+  - image: mysql:8.0.29
     name: database-container
     imagePullPolicy: IfNotPresent
     env:
